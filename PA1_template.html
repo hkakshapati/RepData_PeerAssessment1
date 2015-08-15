@@ -94,6 +94,9 @@ ggplot(data = avg_steps_interval,aes(x=interval,y=x))+geom_line()+ylab('Number o
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
+<div id="strategy-for-imputing-missing-data" class="section level3">
+<h3>Strategy for imputing missing data:</h3>
+<p>The missing data were filled with average steps for that interval. First activity data is left joined with the vector containing average steps per interval. Then, if the steps column is na, it is filled with average steps value in that row. Finally the extra average steps column is eliminated.</p>
 <pre class="r"><code>#num of na's
 miss&lt;-sum(is.na(activity))
 
@@ -115,6 +118,7 @@ med_imput&lt;-median(total_steps_day_imput$x)</code></pre>
 <p>Total number rows with missing values = 2304</p>
 <p>Mean of total number of steps taken per day (imputted) = 1.076610^{4}<br />Median of total number of steps taken per day (imputted)= 1.076610^{4}</p>
 <p>After imputing the missing values, both the mean and median values of total number of steps taken increased.</p>
+</div>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>

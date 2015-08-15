@@ -39,6 +39,9 @@ The 5-minute interval, on average across all the days in the dataset, that conta
 
 
 ## Imputing missing values
+###Strategy for imputing missing data: 
+The missing data were filled with average steps for that interval. First activity data is left joined with the vector containing average steps per interval. Then, if the steps column is na, it is filled with average steps value in that row. Finally the extra average steps column is eliminated.
+
 ```{r}
 #num of na's
 miss<-sum(is.na(activity))
