@@ -40,7 +40,7 @@ library(ggplot2)
 
 ```r
 avg_steps_interval<-aggregate(activity$steps,by=list(interval=activity$interval),FUN = mean,na.rm=TRUE)
-ggplot(data = avg_steps_interval,aes(x=interval,y=x))+geom_point()+geom_line()+ylab('Number of steps')
+ggplot(data = avg_steps_interval,aes(x=interval,y=x))+geom_line()+ylab('Number of steps')
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
@@ -48,19 +48,15 @@ ggplot(data = avg_steps_interval,aes(x=interval,y=x))+geom_point()+geom_line()+y
 ```r
 max_steps_interval<-subset(avg_steps_interval,avg_steps_interval$x==max(avg_steps_interval$x))
 ```
+The 5-minute interval, on average across all the days in the dataset, that contains the maximum number of steps: 835
+
 
 ## Imputing missing values
 
 ```r
 #num of na's
-sum(is.na(activity))
-```
+miss<-sum(is.na(activity))
 
-```
-## [1] 2304
-```
-
-```r
 #left join activity and avg_steps_interval 
 activity_merge<-merge(x = activity,y = avg_steps_interval,by = "interval",all.x = TRUE )
 
@@ -81,8 +77,12 @@ hist(total_steps_day_imput$x,xlab = 'Total number of steps per day',main = 'Hist
 mn_imput<-round(mean(total_steps_day_imput$x),0)
 med_imput<-median(total_steps_day_imput$x)
 ```
+Total number rows with missing values = 2304 
+
 Mean of total number of steps taken per day (imputted) = 1.0766\times 10^{4}  
 Median of total number of steps taken per day (imputted)= 1.0766\times 10^{4}
+
+After imputing the missing values, both the mean and median values of total number of steps taken increased.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -101,3 +101,4 @@ avg_steps_interval_days<-aggregate(activity_days$steps,by=list(interval=activity
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
+From the above plot, it is clear that there is some difference in activity patterns between weekdays and weekends. It is seen that activity starts around interval 500 in weekdays, whereas activity starts around interval 800 on the weekends. 
